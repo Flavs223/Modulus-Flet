@@ -1,0 +1,9 @@
+# Ignorar entorno virtual
+entorno_virtual/
+
+# Archivos temporales de Python
+*.pyc
+__pycache__/
+
+# Archivos de base de datos o backups
+data/backups/
