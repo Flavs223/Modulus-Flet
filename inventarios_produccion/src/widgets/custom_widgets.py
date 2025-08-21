@@ -77,6 +77,25 @@ def contenedor(contenido, color: str = "#eeeeee", ancho: int = 200, alto: int = 
         padding=10,
         border_radius=10
     )
+def contenedor_imagen():
+    """
+    Contenedor que muestra una imagen dentro de un fondo personalizado.
+    
+    - Usa ft.Container como caja principal
+    - content puede ser cualquier widget, en este caso un ft.Image
+    - bgcolor, padding y border_radius son estilos decorativos
+    """
+    return ft.Container(
+        content=ft.Image(
+            src="https://picsum.photos/200",  # URL de la imagen
+            width=200,
+            height=200,
+            fit=ft.ImageFit.COVER            # Ajusta cómo se escala la imagen
+        ),
+        bgcolor="blue200",
+        padding=10,
+        border_radius=15
+    )
 
 def tarjeta(contenido):
     """Tarjeta con sombra y bordes redondeados."""
