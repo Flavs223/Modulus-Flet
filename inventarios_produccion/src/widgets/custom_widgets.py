@@ -1,4 +1,27 @@
 import flet as ft
+from PIL import Image 
+import customtkinter as ctk
+
+# ==================================
+# CLASES PARA WIDGETS PERSONALIZADOS
+# ==================================
+#   CREO LA CLASE DE ContenedorImagen PARA USARLA EN EL BLOQUE 2
+#    - Esta clase hereda de ctk.CTkFrame para crear un contenedor personalizado
+#    - Permite mostrar una imagen dentro de un fondo con estilo
+#    - Puedes ajustar el tamaño, color de fondo y radio de esquina
+#    - Usa PIL para cargar imágenes si es necesario (aunque aquí no se usa directamente)
+
+class ContenedorImagen(ctk.CTkFrame):
+    #Toma como parámetros 
+    def __init__(self, parent, ruta_imagen: str,
+                 width: int = 200, height: int = 200,
+                 bg_color: str = "transparent",
+                 corner_radius: int = 10,
+                 *args, **kwargs):
+        super().__init__(parent, fg_color=bg_color,
+                         corner_radius=corner_radius, *args, **kwargs)
+
+
 
 # ==========================
 # BLOQUE 1: CONTROLES BÁSICOS DE TEXTO Y FORMULARIOS
@@ -121,3 +144,49 @@ def anillo_progreso():
 def avatar_circular(texto: str = "U", color: str = "blue"):
     """Avatar circular con inicial o ícono."""
     return ft.CircleAvatar(content=ft.Text(texto), bgcolor=color)
+
+# ==========================
+# BLOQUE 3: LISTAS Y TABLAS
+# ==========================
+
+def lista_vertical(elementos: list[str]):
+    """ListView: lista vertical desplazable."""
+    return ft.ListView(
+        controls=[ft.Text(e) for e in elementos],
+        height=120,
+        spacing=5,
+        padding=10,
+    )
+
+def lista_cuadricula(elementos: list[str], columnas: int = 2):
+    """GridView: lista en formato de cuadrícula con márgenes alrededor."""
+    return ft.Container( # Contenedor para agregar padding alrededor de la cuadrícula
+        content=ft.GridView(# Usamos GridView para la cuadrícula
+            runs_count=columnas,#Número deseado de columnas en este caso
+            max_extent=200,#Ancho máximo de cada celda
+            spacing=55,# Espacio entre filas
+            run_spacing=55,# Espacio entre columnas
+            controls=[# Cada elemento es un contenedor con fondo y texto centrado
+                ft.Container(
+                    ft.Text(e, color="#FFFFFF"), #Define el colo del texto de cada (e)lemento
+                    bgcolor="#CD1A1A", #Fondo de cada cuadro
+                    border_radius=10, # Bordes redondeados
+                    alignment=ft.alignment.center, # Centra el texto
+                    height=400, # Altura fija para cada cuadro
+                    width=400, # Ancho fijo para cada cuadro
+                ) for e in elementos #Todo esto se repite por cada elemento en la lista de entrada
+            ]
+        ),
+        padding=ft.padding.all(30)  # Espacio alrededor de la cuadrícula
+    )
+def tabla_datos(filas: list[list[str]], encabezados: list[str]):
+    """DataTable: tabla con columnas y filas."""
+    return ft.DataTable(
+        columns=[ft.DataColumn(ft.Text(col)) for col in encabezados],
+        rows=[
+            ft.DataRow(
+                cells=[ft.DataCell(ft.Text(celda)) for celda in fila]
+            )
+            for fila in filas
+        ]
+    )

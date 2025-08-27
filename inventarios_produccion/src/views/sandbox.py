@@ -1,9 +1,11 @@
 import flet as ft
-import src.widgets.custom_widgets as cw
+from src.widgets import custom_widgets as cw
+
 
 def main(page: ft.Page):
     page.title = "Sandbox - Widgets de prueba"
     page.scroll = "auto"
+    # ==========================
 
     # BLOQUE 1
     bloque1 = ft.Column([
@@ -38,11 +40,31 @@ def main(page: ft.Page):
         
     ])
 
-    # Agregamos ambos bloques al layout
+# BLOQUE 3
+    bloque3 = ft.Column([
+        ft.Text("=== BLOQUE 3: LISTAS Y TABLAS ===", size=20, weight="bold"),
+        ft.Text("Lista vertical (ListView):"),
+        cw.lista_vertical(["Elemento 1", "Elemento 2", "Elemento 3"]), #Lista vertical con 3 elementos
+        ft.Text("Lista en cuadrícula (GridView):"),
+        cw.lista_cuadricula([f"Item {i}" for i in range(1, 10)]), #Gridview con 9 items y 3 columnas
+        ft.Text("Tabla de datos (DataTable):"),
+        cw.tabla_datos(
+            filas=[
+                ["Ana", "25", "México"],
+                ["Luis", "30", "España"],
+                ["John", "28", "USA"]
+            ],
+            encabezados=["Nombre", "Edad", "País"]
+        )
+    ])
+
+    # Agregamos todos los bloques
     page.add(
         bloque1,
         ft.Divider(thickness=2),
-        bloque2
+        bloque2,
+        ft.Divider(thickness=2),
+        bloque3
     )
 
 ft.app(target=main)
