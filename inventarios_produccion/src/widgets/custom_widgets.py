@@ -162,22 +162,23 @@ def lista_cuadricula(elementos: list[str], columnas: int = 2):
     """GridView: lista en formato de cuadrícula con márgenes alrededor."""
     return ft.Container( # Contenedor para agregar padding alrededor de la cuadrícula
         content=ft.GridView(# Usamos GridView para la cuadrícula
-            runs_count=columnas,#Número deseado de columnas en este caso
-            max_extent=200,#Ancho máximo de cada celda
-            spacing=55,# Espacio entre filas
-            run_spacing=55,# Espacio entre columnas
+            #expand=True,
+            #max_extent=100,#Ancho máximo de cada celda
+            runs_count=columnas,
+            spacing=65,# Espacio entre filas
+            run_spacing=65,# Espacio entre columnas
             controls=[# Cada elemento es un contenedor con fondo y texto centrado
                 ft.Container(
-                    ft.Text(e, color="#FFFFFF"), #Define el colo del texto de cada (e)lemento
+                    ft.Text(e, color="#FFFFFF", weight="bold", italic=True), #Define el colo del texto de cada (e)lemento
                     bgcolor="#CD1A1A", #Fondo de cada cuadro
                     border_radius=10, # Bordes redondeados
                     alignment=ft.alignment.center, # Centra el texto
-                    height=400, # Altura fija para cada cuadro
-                    width=400, # Ancho fijo para cada cuadro
+                    height=120, # Altura fija para cada cuadro
+                    width=120, # Ancho fijo para cada cuadro
                 ) for e in elementos #Todo esto se repite por cada elemento en la lista de entrada
             ]
         ),
-        padding=ft.padding.all(30)  # Espacio alrededor de la cuadrícula
+        padding=ft.padding.all(50)  # Espacio alrededor de la cuadrícula
     )
 def tabla_datos(filas: list[list[str]], encabezados: list[str]):
     """DataTable: tabla con columnas y filas."""
