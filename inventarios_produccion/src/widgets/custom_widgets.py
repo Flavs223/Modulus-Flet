@@ -158,28 +158,35 @@ def lista_vertical(elementos: list[str]):
         padding=10,
     )
 
-def lista_cuadricula(elementos: list[str], columnas: int = 2):
+def lista_cuadricula(elementos: list[str], columnas: int = 3):
     """GridView: lista en formato de cuadrícula con márgenes alrededor."""
     return ft.Container( # Contenedor para agregar padding alrededor de la cuadrícula
-        content=ft.GridView(# Usamos GridView para la cuadrícula
-            #expand=True,
-            #max_extent=100,#Ancho máximo de cada celda
-            runs_count=columnas,
-            spacing=65,# Espacio entre filas
-            run_spacing=65,# Espacio entre columnas
-            controls=[# Cada elemento es un contenedor con fondo y texto centrado
+        content=ft.GridView( # Usamos GridView para la cuadrícula
+            #expand=True,                            
+            runs_count=columnas,#Hace que mantenga las columnasd del parametro
+            max_extent=400,   # Ancho máximo de cada celda
+            spacing=50, #Espacio entre filas
+            run_spacing=50, #Espacio entre columnas
+            controls=[ # Cada elemento es un contenedor con fondo y texto centrado
                 ft.Container(
-                    ft.Text(e, color="#FFFFFF", weight="bold", italic=True), #Define el colo del texto de cada (e)lemento
-                    bgcolor="#CD1A1A", #Fondo de cada cuadro
-                    border_radius=10, # Bordes redondeados
-                    alignment=ft.alignment.center, # Centra el texto
-                    height=120, # Altura fija para cada cuadro
-                    width=120, # Ancho fijo para cada cuadro
-                ) for e in elementos #Todo esto se repite por cada elemento en la lista de entrada
+                    content=ft.Container(   # Contenedor interno que sí respeta width/height
+                    # Lo realiza llamando a la función ft.Container dentro de la variable content
+                    # El contenido "content" contiene el texto centrado con estilo y el color de la celda
+                        content=ft.Text(e, color="white", size=12), #Estilo del texto de cada (e)lemento
+                        bgcolor="#CD1A1A", 
+                        border_radius=10,
+                        alignment=ft.alignment.center,
+                        height=300,  # Ahora sí 20x20 reales
+                        width=300,
+                    ),
+                    alignment=ft.alignment.center,  # centra el contenido en la celda
+                )
+                for e in elementos
             ]
         ),
-        padding=ft.padding.all(50)  # Espacio alrededor de la cuadrícula
+        padding=20
     )
+    
 def tabla_datos(filas: list[list[str]], encabezados: list[str]):
     """DataTable: tabla con columnas y filas."""
     return ft.DataTable(
