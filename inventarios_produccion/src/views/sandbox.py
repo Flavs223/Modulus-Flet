@@ -57,6 +57,53 @@ def main(page: ft.Page):
             encabezados=["Nombre", "Edad", "País"]
         )
     ])
+#BLOQUE 4
+
+
+# Ejemplos de banners
+    stack = cw.StackImagenTexto("https://picsum.photos/800/400", "Hola Mundo")
+    page.add(stack.build())
+    
+    #page.vertical_alignment = ft.MainAxisAlignment.START
+
+    # Banner 1 - Fondo random + texto grande
+    banner1 = cw.StackImagenTexto(
+        imagen_url="https://raw.githubusercontent.com/flutter/assets-for-api-docs/main/assets/widgets/owl.jpg",
+        texto="Bienvenido al Sistema",
+        tamano_texto=40,
+        color_texto="yellow",
+        alineacion=ft.alignment.center
+    )
+    page.add(banner1.build())
+    
+
+    # Banner 2 - Imagen local + texto arriba a la izquierda
+    banner2 = cw.StackImagenTexto(
+        imagen_url="src/assets/persona5.png",
+        texto="IT'S SHOWTIME",
+        tamano_texto=25,
+        color_texto="white",
+        alineacion=ft.alignment.top_left,
+        ancho=500,
+        alto=200
+    )
+    page.add(banner2.build())
+
+    # Banner 3 - Otro estilo
+    banner3 = cw.StackImagenTexto(
+        imagen_url="https://picsum.photos/800/300.jpg",
+        texto="Reporte de Producción",
+        tamano_texto=28,
+        color_texto="red",
+        alineacion=ft.alignment.bottom_right
+    )
+
+    page.add(banner3.build())
+
+    #page.add(banner1, banner2, banner3)
+    
+    
+    #page.add(stack.build())
 
     # Agregamos todos los bloques
     page.add(
@@ -66,5 +113,7 @@ def main(page: ft.Page):
         ft.Divider(thickness=2),
         bloque3
     )
+    
+
 
 ft.app(target=main)

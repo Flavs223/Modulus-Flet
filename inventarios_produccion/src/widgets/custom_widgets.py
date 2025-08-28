@@ -20,9 +20,46 @@ class ContenedorImagen(ctk.CTkFrame):
                  *args, **kwargs):
         super().__init__(parent, fg_color=bg_color,
                          corner_radius=corner_radius, *args, **kwargs)
+        
+        
+class StackImagenTexto:
+    def __init__(self, imagen_url: str, texto: str, 
+                 ancho: int = 600, alto: int = 300,
+                 alineacion=ft.alignment.center,
+                 color_texto: str = "white", 
+                 tamano_texto: int = 30):
+        self.imagen_url = imagen_url
+        self.texto = texto
+        self.ancho = ancho
+        self.alto = alto
+        self.alineacion = alineacion
+        self.color_texto = color_texto
+        self.tamano_texto = tamano_texto
 
-
-
+    def build(self):  # 👈 aquí está el método que antes te faltaba
+        return ft.Stack(
+            controls=[
+                ft.Image(
+                    src=self.imagen_url,
+                    width=self.ancho,
+                    height=self.alto,
+                    fit=ft.ImageFit.COVER,
+                ),
+                ft.Container(
+                    content=ft.Text(
+                        self.texto,
+                        size=self.tamano_texto,
+                        weight=ft.FontWeight.BOLD,
+                        color=self.color_texto,
+                    ),
+                    alignment=self.alineacion,
+                    width=self.ancho,
+                    height=self.alto,
+                ),
+            ],
+            width=self.ancho,
+            height=self.alto,
+        )
 # ==========================
 # BLOQUE 1: CONTROLES BÁSICOS DE TEXTO Y FORMULARIOS
 # ==========================
@@ -196,5 +233,93 @@ def tabla_datos(filas: list[list[str]], encabezados: list[str]):
                 cells=[ft.DataCell(ft.Text(celda)) for celda in fila]
             )
             for fila in filas
+        ]
+    )
+
+# ==========================
+# BLOQUE 4: ORGANIZADORES DE LAYOUT
+# ==========================
+def fila_basica():
+    return ft.Row(
+        controls=[
+            ft.Container(content=ft.Text("Elemento 1"), bgcolor="red", width=100, height=50),
+            ft.Container(content=ft.Text("Elemento 2"), bgcolor="green", width=100, height=50),
+            ft.Container(content=ft.Text("Elemento 3"), bgcolor="blue", width=100, height=50),
+        ],
+        alignment=ft.MainAxisAlignment.SPACE_AROUND
+    )
+
+def columna_basica():
+    return ft.Column(
+        controls=[
+            ft.Text("Fila 1", size=20),
+            ft.Text("Fila 2", size=20),
+            ft.Text("Fila 3", size=20),
+        ],
+        alignment=ft.MainAxisAlignment.CENTER
+    )
+
+
+def tabs_basicos():
+    return ft.Tabs(
+        selected_index=0,
+        animation_duration=300,
+        tabs=[
+            ft.Tab(text="Inicio", content=ft.Text("Contenido de Inicio")),
+            ft.Tab(text="Perfil", content=ft.Text("Contenido de Perfil")),
+            ft.Tab(text="Configuración", content=ft.Text("Contenido de Configuración")),
+        ]
+    )
+
+def panel_expandible():
+    return ft.ExpansionPanelList(
+        expand_icon_color="blue",
+        elevation=2,
+        controls=[
+            ft.ExpansionPanel(
+                header=ft.Text("Panel 1"),
+                content=ft.Text("Contenido del panel 1"),
+                bgcolor="#f22727",
+                expanded=False
+            ),
+            ft.ExpansionPanel(
+                header=ft.Text("Panel 2"),
+                content=ft.Text("Contenido del panel 2"),
+                bgcolor="#2057ff",
+                expanded=True
+            ),
+        ]
+    )
+
+
+def barra_navegacion():
+    return ft.NavigationBar(
+        destinations=[
+            ft.NavigationBarDestination(icon=ft.Icons.HOME, label="Inicio"),
+            ft.NavigationBarDestination(icon=ft.Icons.PERSON, label="Perfil"),
+            ft.NavigationBarDestination(icon=ft.Icons.SETTINGS, label="Config"),
+        ]
+    )
+
+
+def ejemplo_navigationrail():
+    return ft.NavigationRail(
+        selected_index=0,
+        label_type=ft.NavigationRailLabelType.ALL,
+        destinations=[
+            ft.NavigationRailDestination(icon=ft.Icons.HOME, label="Inicio"),
+            ft.NavigationRailDestination(icon=ft.Icons.PERSON, label="Perfil"),
+            ft.NavigationRailDestination(icon=ft.Icons.SETTINGS, label="Config"),
+        ]
+    )
+
+def barra_superior():
+    return ft.AppBar(
+        title=ft.Text("Mi Aplicación"),
+        bgcolor="blue",
+        leading=ft.Icon(ft.Icons.MENU),
+        actions=[
+            ft.IconButton(ft.Icons.SEARCH),
+            ft.IconButton(ft.Icons.MORE_VERT),
         ]
     )
